@@ -1,7 +1,6 @@
 package id.co.metrasat.firtsappwithkotlin
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
@@ -12,6 +11,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -36,9 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val password = field_password.text.toString()
             if (password == passwords) {
 
-                val intent = Intent(this, Main2Activity::class.java)
-                intent.putExtra("names", nama)
-                startActivity(intent)
+                startActivity(intentFor<Main2Activity>("names" to nama))
 
                 Toast.makeText(this, "Hallo $nama, Selamat belajar Kotlin ", Toast.LENGTH_LONG).show()
             } else {

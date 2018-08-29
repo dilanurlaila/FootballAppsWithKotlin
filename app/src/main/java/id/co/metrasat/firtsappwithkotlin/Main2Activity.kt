@@ -1,10 +1,10 @@
 package id.co.metrasat.firtsappwithkotlin
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import org.jetbrains.anko.intentFor
 
 class Main2Activity : AppCompatActivity() {
 
@@ -41,11 +41,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun onItemClickListener (item: items){
-        val intent = Intent(this, DetailClub::class.java)
-        intent.putExtra("title", item.name)
-        intent.putExtra("images", item.Image)
-        intent.putExtra("desc", item.Description)
-        startActivity(intent)
+        startActivity(intentFor<DetailClub>("title" to item.name, "images" to item.Image, "desc" to item.Description))
     }
 
 

@@ -17,9 +17,9 @@ class DetailClub : AppCompatActivity() {
     var Image: Int = 0
     var desc: String = ""
 
-    lateinit var txt_title: TextView
-    lateinit var img_logo: ImageView
-    lateinit var txt_desc: TextView
+    lateinit var txtTitle: TextView
+    lateinit var imgLogo: ImageView
+    lateinit var txtDesc: TextView
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,18 +32,18 @@ class DetailClub : AppCompatActivity() {
             gravity = Gravity.CENTER
 
 
-            img_logo = imageView(R.drawable.img_acm) {
+            imgLogo = imageView(R.drawable.img_acm) {
                 bottomPadding = dip(5)
             }.lparams(width = dip(150), height = dip(150))
 
-            txt_title = textView() {
+            txtTitle = textView() {
                 textSize = 20f
                 topPadding = dip(10)
                 bottomPadding = dip(15)
                 gravity = Gravity.CENTER
             }.lparams(width = wrapContent)
 
-            txt_desc = textView() {
+            txtDesc = textView() {
                 textSize = 15f
                 textAlignment = View.TEXT_ALIGNMENT_CENTER
             }.lparams(width = matchParent)
@@ -53,9 +53,9 @@ class DetailClub : AppCompatActivity() {
         Image = intent.getIntExtra("images", 0)
         desc = intent.getStringExtra("desc")
 
-        txt_title.text = title
-        Glide.with(img_logo).load(Image).into(img_logo)
-        txt_desc.text = desc
+        txtTitle.text = title
+        Glide.with(imgLogo).load(Image).into(imgLogo)
+        txtDesc.text = desc
 
     }
 }
