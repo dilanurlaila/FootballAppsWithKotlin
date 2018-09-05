@@ -1,2 +1,2 @@
 # FootballAppsWithKotlin
-Submission 1 aplikasi football
+Submission 2 aplikasi football
