@@ -1,49 +1,61 @@
 package id.co.metrasat.firtsappwithkotlin
 
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import org.jetbrains.anko.intentFor
+import android.view.MenuItem
+import android.widget.FrameLayout
+import id.co.metrasat.firtsappwithkotlin.fragment.fragmentEventNext
+import id.co.metrasat.firtsappwithkotlin.fragment.fragmentEventPast
 
 class Main2Activity : AppCompatActivity() {
 
-    private var item: MutableList<items> = mutableListOf()
-
+    private var content: FrameLayout? = null
+    lateinit var toolbar: ActionBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        val list = findViewById<RecyclerView>(R.id.rv_club)
 
-        initData()
+        content = findViewById<FrameLayout>(R.id.container)
+        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        toolbar = supportActionBar!!
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        list.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
-        list.adapter = ClubAdapter(this, item){
+        val fragment = fragmentEventPast.Companion.newInstance()
+        addFrgment(fragment)
+        toolbar.title = "Previous Event Match"
+    }
 
-            onItemClickListener(it)
-//            val intent = getIntent()
-//            val names = intent.getStringExtra("names")
-//            Toast.makeText(applicationContext, names + " anda memilih " + it.name, Toast.LENGTH_LONG).show()
+    private val mOnNavigationItemSelectedListener = object : BottomNavigationView.OnNavigationItemSelectedListener {
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.prev_match -> {
+                    val fragment = fragmentEventPast.Companion.newInstance()
+                    addFrgment(fragment)
+                    toolbar.title = "Previous Event Match"
+                    return true
+                }
+                R.id.next_match -> {
+                    val fragment = fragmentEventNext.Companion.newInstance()
+                    addFrgment(fragment)
+                    toolbar.title = "Next Event Match"
+                    return true
+                }
 
+            }
+            return false
         }
-
     }
 
-    private fun initData() {
-        val name = resources.getStringArray(R.array.club_name)
-        val image = resources.obtainTypedArray(R.array.club_image)
-        val desc = resources.getStringArray(R.array.description)
-        item.clear()
-        for (i in name.indices){
-            item.add(items(name[i], image.getResourceId(i,0), desc[i]))
-        }
-        image.recycle()
+    private fun addFrgment(fragment: Fragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+                .replace(R.id.container, fragment, fragment.javaClass.simpleName)
+                .addToBackStack(fragment.javaClass.simpleName)
+                .commit()
     }
-
-    private fun onItemClickListener (item: items){
-        startActivity(intentFor<DetailClub>("title" to item.name, "images" to item.Image, "desc" to item.Description))
-    }
-
-
 
 }

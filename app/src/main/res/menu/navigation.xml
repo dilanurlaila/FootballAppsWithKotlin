@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/prev_match"
+        android:icon="@mipmap/ic_trophy"
+        android:title="@string/title_prev_match" />
+
+    <item
+        android:id="@+id/next_match"
+        android:icon="@mipmap/ic_nextmatch"
+        android:title="@string/title_next_match" />
+
+</menu>
